@@ -14,6 +14,7 @@ export interface TikTokUser {
   privateAccount: boolean;
   isADVirtual: boolean;
   roomId: string;
+  language: string;
 }
 
 export interface TikTokStats {

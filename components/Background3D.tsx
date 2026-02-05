@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -49,14 +49,16 @@ export const Background3D: React.FC = () => {
     <div className="fixed inset-0 z-[-1] bg-gradient-to-br from-gray-900 via-black to-slate-900">
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
       
-      {/* Fallback gradients if WebGL fails or just for extra aesthetic */}
+      {/* Fallback gradients */}
       <div className="absolute top-0 -left-4 w-72 h-72 bg-tiktok-pink rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
       <div className="absolute top-0 -right-4 w-72 h-72 bg-tiktok-cyan rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
       <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
 
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-        <ParticleField />
-      </Canvas>
+      <Suspense fallback={null}>
+        <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[1, 2]}>
+          <ParticleField />
+        </Canvas>
+      </Suspense>
     </div>
   );
 };
